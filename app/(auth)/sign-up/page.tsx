@@ -6,6 +6,17 @@ import { Button } from "@/components/ui/button";
 import { INVESTMENT_GOALS, PREFERRED_INDUSTRIES, RISK_TOLERANCE_OPTIONS } from "@/lib/constants";
 import { useForm } from "react-hook-form";
 import { CountrySelectField } from "@/components/forms/CountrySelectField";
+import FooterLink from "@/components/forms/FooterLink";
+
+type SignUpFormData = {
+    fullName: string;
+    email: string;
+    password: string;
+    country: string;
+    investmentGoals: string;
+    riskTolerance: string;
+    preferredIndustry: string;
+};
 
 const SignUp = () => {
     const {
@@ -50,7 +61,7 @@ const SignUp = () => {
             <InputField
                 name="email"
                 label="Email"
-                placeholder="john.doe@example.com"
+                placeholder="example@example.com"
                 type="email"
                 register={register}
                 error={errors.email}
@@ -67,7 +78,13 @@ const SignUp = () => {
                 validation={{ required: 'Password is required', minLength: 6 }}
             />
 
-            <CountrySelectField/>
+            <CountrySelectField
+                name="country"
+                label="Country"
+                control={control}
+                error={errors.country}
+                required
+            />
 
             <SelectField
                 name='investmentGoals'
@@ -102,6 +119,12 @@ const SignUp = () => {
             <Button type="submit" disabled={isSubmitting} className='yellow-btn w-full mt-5'>
                 {isSubmitting ? 'Creating Account...' : 'Start Your Trading Journey'}
             </Button>
+
+            <FooterLink
+                text="Already have an account?"
+                linkText="Sign in"
+                href="/sign-in"
+            />
         </form>
     </>
   )

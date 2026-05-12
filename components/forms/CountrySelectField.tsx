@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Control, Controller, FieldError } from 'react-hook-form';
+import { Control, Controller, FieldError, FieldValues, Path } from 'react-hook-form';
 import {
     Popover,
     PopoverContent,
@@ -18,22 +18,22 @@ import {
 } from '@/components/ui/command';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { Check, ChevronsUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Check, ChevronsUpDown } from 'lucide-react';
 import countryList from 'react-select-country-list';
 
-type CountrySelectProps = {
-    name: string;
+type CountrySelectProps<T extends FieldValues = any> = {
+    name: Path<T>;
     label: string;
-    control: Control<any>;
+    control: Control<T>;
     error?: FieldError;
     required?: boolean;
 };
 
 const CountrySelect = ({
-                           value,
-                           onChange,
-                       }: {
+    value,
+    onChange,
+}: {
     value: string;
     onChange: (value: string) => void;
 }) => {
@@ -53,7 +53,7 @@ const CountrySelect = ({
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
+            <PopoverTrigger>
                 <Button
                     variant='outline'
                     role='combobox'
@@ -62,9 +62,9 @@ const CountrySelect = ({
                 >
                     {value ? (
                         <span className='flex items-center gap-2'>
-              <span>{getFlagEmoji(value)}</span>
-              <span>{countries.find((c) => c.value === value)?.label}</span>
-            </span>
+                            <span>{getFlagEmoji(value)}</span>
+                            <span>{countries.find((c) => c.value === value)?.label}</span>
+                        </span>
                     ) : (
                         'Select your country...'
                     )}
@@ -102,9 +102,9 @@ const CountrySelect = ({
                                         )}
                                     />
                                     <span className='flex items-center gap-2'>
-                    <span>{getFlagEmoji(country.value)}</span>
-                    <span>{country.label}</span>
-                  </span>
+                                        <span>{getFlagEmoji(country.value)}</span>
+                                        <span>{country.label}</span>
+                                    </span>
                                 </CommandItem>
                             ))}
                         </CommandGroup>
@@ -115,13 +115,13 @@ const CountrySelect = ({
     );
 };
 
-export const CountrySelectField = ({
-                                       name,
-                                       label,
-                                       control,
-                                       error,
-                                       required = false,
-                                   }: CountrySelectProps) => {
+export const CountrySelectField = <T extends FieldValues = any>({
+    name,
+    label,
+    control,
+    error,
+    required = false,
+}: CountrySelectProps<T>) => {
     return (
         <div className='space-y-2'>
             <Label htmlFor={name} className='form-label'>
