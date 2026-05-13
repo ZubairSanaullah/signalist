@@ -9,5 +9,4 @@ async function testConnection() {
     }
 }
 
-testConnection();</content>
-<parameter name="filePath">e:\FullStack\signalist\test-db.mjs
+testConnection();

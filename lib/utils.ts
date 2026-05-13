@@ -5,23 +5,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export interface RawNewsArticle {
-  id: number | string;
-  headline?: string;
-  summary?: string;
-  source?: string;
-  url?: string;
-  datetime?: number | string;
-  image?: string;
-  category?: string;
-  related?: string;
-}
-
-export interface Alert {
-  alertType: 'upper' | 'lower' | string;
-  threshold: number;
-}
-
 export const formatTimeAgo = (timestamp: number) => {
   const now = Date.now();
   const diffInMs = now - timestamp * 1000; // Convert to milliseconds
@@ -91,21 +74,21 @@ export const calculateNewsDistribution = (symbolsCount: number) => {
 
 // Check for required article fields
 export const validateArticle = (article: RawNewsArticle) =>
-  article.headline && article.summary && article.url && article.datetime;
+    article.headline && article.summary && article.url && article.datetime;
 
 // Get today's date string in YYYY-MM-DD format
 export const getTodayString = () => new Date().toISOString().split('T')[0];
 
 export const formatArticle = (
-  article: RawNewsArticle,
-  isCompanyNews: boolean,
-  symbol?: string,
-  index: number = 0
+    article: RawNewsArticle,
+    isCompanyNews: boolean,
+    symbol?: string,
+    index: number = 0
 ) => ({
   id: isCompanyNews ? Date.now() + Math.random() : article.id + index,
   headline: article.headline!.trim(),
   summary:
-    article.summary!.trim().substring(0, isCompanyNews ? 200 : 150) + '...',
+      article.summary!.trim().substring(0, isCompanyNews ? 200 : 150) + '...',
   source: article.source || (isCompanyNews ? 'Company News' : 'Market News'),
   url: article.url!,
   datetime: article.datetime!,

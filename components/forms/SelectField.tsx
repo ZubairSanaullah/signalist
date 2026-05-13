@@ -28,7 +28,7 @@ const SelectField = ({ name, label, placeholder, options, control, error, requir
                     </SelectTrigger>
                     <SelectContent className='bg-gray-800 border-gray-600 text-white'>
                         {options.map((option) => (
-                            <SelectItem value={option.value} key={option.value} className='focus:bg-gray-600 foctus:text-white'>
+                            <SelectItem value={option.value} key={option.value} className='focus:bg-gray-600 focus:text-white'>
                                 {option.label}
                             </SelectItem>
                         ))}

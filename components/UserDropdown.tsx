@@ -14,18 +14,16 @@ import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut } from "lucide-react";
 import NavItems from "@/components/NavItems";
+import { signOut } from "@/lib/actions/auth.actions";
 
-const UserDropdown = () => {
+const UserDropdown = ({ user, initialStocks }: { user: User, initialStocks: StockWithWatchlistStatus[] }) => {
+    if (!user) return null;
     const router = useRouter();
 
     const handleSignOut = async () => {
+        await signOut();
         router.push("/sign-in");
     };
-
-    const user = {
-        name: "John Doe",
-        email: 'john.doe@example.com'
-    }
 
     return (
         <DropdownMenu>
@@ -33,7 +31,7 @@ const UserDropdown = () => {
                 <Avatar className="w-8 h-8">
                     <AvatarImage src='https://github.com/shadcn.png' />
                     <AvatarFallback className='bg-yellow-500 text-yellow-900 text-sm font-bold'>
-                        {user.name[0]}
+                        {user.name?.[0] || 'U'}
                     </AvatarFallback>
                 </Avatar>
                 <span className='hidden md:flex flex-col items-start'>
@@ -49,7 +47,7 @@ const UserDropdown = () => {
                         <Avatar className="w-10 h-10">
                             <AvatarImage src='https://github.com/shadcn.png' />
                             <AvatarFallback className='bg-yellow-500 text-yellow-900 text-sm font-bold'>
-                                {user.name[0]}
+                                {user.name?.[0] || 'U'}
                             </AvatarFallback>
                         </Avatar>
 
@@ -71,7 +69,7 @@ const UserDropdown = () => {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className='hidden:sm:block bg-gray-600' />
                 <nav className="sm:hidden">
-                    <NavItems />
+                    <NavItems initialStocks={initialStocks} />
                 </nav>
             </DropdownMenuContent>
         </DropdownMenu>

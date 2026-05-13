@@ -5,4 +5,5 @@ export const inngest = new Inngest({
     ...(process.env.INNGEST_SIGNING_KEY && {
         signingKey: process.env.INNGEST_SIGNING_KEY,
     }),
+    ai: {gemini: {apiKey: process.env.GEMINI_API_KEY!}}
 });

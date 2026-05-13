@@ -9,7 +9,7 @@ declare global {
         email: string;
         password: string;
         country: string;
-        investmentGoals: string;
+        investmentGoal: string;
         riskTolerance: string;
         preferredIndustry: string;
     };
@@ -67,6 +67,18 @@ declare global {
         intro: string;
     };
 
+    type NewsSummaryEmailData = {
+        email: string;
+        date: string;
+        newsContent: string;
+    };
+
+    type UserForNewsEmail = {
+        id: string;
+        email: string;
+        name: string;
+    };
+
     type User = {
         id: string;
         name: string;
@@ -114,6 +126,17 @@ declare global {
     type QuoteData = {
         c?: number;
         dp?: number;
+    };
+
+    type FinnhubQuote = {
+        c: number;
+        d: number;
+        dp: number;
+        h: number;
+        l: number;
+        o: number;
+        pc: number;
+        t: number;
     };
 
     type ProfileData = {

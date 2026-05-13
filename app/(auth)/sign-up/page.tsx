@@ -7,18 +7,22 @@ import { INVESTMENT_GOALS, PREFERRED_INDUSTRIES, RISK_TOLERANCE_OPTIONS } from "
 import { useForm } from "react-hook-form";
 import { CountrySelectField } from "@/components/forms/CountrySelectField";
 import FooterLink from "@/components/forms/FooterLink";
+import { signInWithEmail, signUpWithEmail } from "@/lib/actions/auth.actions";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 type SignUpFormData = {
     fullName: string;
     email: string;
     password: string;
     country: string;
-    investmentGoals: string;
+    investmentGoal: string;
     riskTolerance: string;
     preferredIndustry: string;
 };
 
 const SignUp = () => {
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -30,7 +34,7 @@ const SignUp = () => {
             email: '',
             password: '',
             country: 'US',
-            investmentGoals: 'Growth',
+            investmentGoal: 'Growth',
             riskTolerance: 'Medium',
             preferredIndustry: 'Technology',
         },
@@ -39,11 +43,16 @@ const SignUp = () => {
 
     const onSubmit = async (data: SignUpFormData) => {
         try {
-            console.log('Form Data:', data);
-        } catch (error) {
-            console.error('Error submitting form:', error);
+            const result = await signUpWithEmail(data);
+            if(result.success) router.push('/');
+        } catch (e) {
+            console.error(e);
+            toast.error('Sign up failed', {
+                description: e instanceof Error ? e.message : 'An unexpected error occurred. Please try again.'
+            })
         }
     }
+
   return (
     <>
         <h1 className='form-title'>Sign Up & Personalize</h1>
@@ -87,12 +96,12 @@ const SignUp = () => {
             />
 
             <SelectField
-                name='investmentGoals'
+                name='investmentGoal'
                 label='Investment Goals'
                 placeholder='Select your investment goals'
                 options={INVESTMENT_GOALS}
                 control={control}
-                error={errors.investmentGoals}
+                error={errors.investmentGoal}
                 required
             />
 
