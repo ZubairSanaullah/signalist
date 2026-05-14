@@ -137,3 +137,32 @@ export const getFormattedTodayDate = () => new Date().toLocaleDateString('en-US'
   day: 'numeric',
   timeZone: 'UTC',
 });
+
+export const formatTradingViewSymbol = (symbol: string) => {
+    if (!symbol) return '';
+    const upper = symbol.toUpperCase();
+    if (upper.includes(':')) return upper;
+    
+    if (upper.endsWith('.V')) return `TSXV:${upper.replace('.V', '')}`;
+    if (upper.endsWith('.TO')) return `TSX:${upper.replace('.TO', '')}`;
+    if (upper.endsWith('.NE')) return `NEO:${upper.replace('.NE', '')}`;
+    if (upper.endsWith('.CN')) return `CSE:${upper.replace('.CN', '')}`;
+    if (upper.endsWith('.L')) return `LSE:${upper.replace('.L', '')}`;
+    if (upper.endsWith('.F')) return `FWB:${upper.replace('.F', '')}`;
+    if (upper.endsWith('.PA')) return `EURONEXT:${upper.replace('.PA', '')}`;
+    if (upper.endsWith('.AS')) return `EURONEXT:${upper.replace('.AS', '')}`;
+    if (upper.endsWith('.MI')) return `MIL:${upper.replace('.MI', '')}`;
+    if (upper.endsWith('.HK')) return `HKEX:${upper.replace('.HK', '')}`;
+    if (upper.endsWith('.T')) return `TSE:${upper.replace('.T', '')}`;
+    if (upper.endsWith('.SZ')) return `SZSE:${upper.replace('.SZ', '')}`;
+    if (upper.endsWith('.SS')) return `SSE:${upper.replace('.SS', '')}`;
+    if (upper.endsWith('.BO')) return `BSE:${upper.replace('.BO', '')}`;
+    if (upper.endsWith('.NS')) return `NSE:${upper.replace('.NS', '')}`;
+    if (upper.endsWith('.AX')) return `ASX:${upper.replace('.AX', '')}`;
+    
+    if (upper.includes('.')) {
+        return upper.split('.')[0];
+    }
+    
+    return upper;
+};
