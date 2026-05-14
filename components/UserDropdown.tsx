@@ -40,28 +40,28 @@ const UserDropdown = ({ user, initialStocks }: { user: User, initialStocks: Stoc
                     </span>
                 </span>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className='text-gray-400'>
-                <DropdownMenuLabel className='flex'>
+                <DropdownMenuContent className='text-gray-400 w-auto min-w-[240px] max-w-[300px]'>
+                    <DropdownMenuLabel className='flex w-full'>
 
-                    <div className='flex relative items-center gap-3 py-2'>
-                        <Avatar className="w-10 h-10">
-                            <AvatarImage src='https://github.com/shadcn.png' />
-                            <AvatarFallback className='bg-yellow-500 text-yellow-900 text-sm font-bold'>
-                                {user.name?.[0] || 'U'}
-                            </AvatarFallback>
-                        </Avatar>
+                        <div className='flex relative items-center gap-3 py-2 w-full overflow-hidden'>
+                            <Avatar className="w-10 h-10 shrink-0">
+                                <AvatarImage src='https://github.com/shadcn.png' />
+                                <AvatarFallback className='bg-yellow-500 text-yellow-900 text-sm font-bold'>
+                                    {user.name?.[0] || 'U'}
+                                </AvatarFallback>
+                            </Avatar>
 
-                        <div className='flex flex-col items-start'>
-                            <span className='text-base font-medium text-gray-400'>
-                                {user.name}
-                            </span>
-                            <span className='text-sm text-gray-500'>
-                                {user.email}
-                            </span>
+                            <div className='flex flex-col items-start overflow-hidden flex-1'>
+                                <span className='text-base font-medium text-gray-400 truncate w-full text-left'>
+                                    {user.name}
+                                </span>
+                                <span className='text-sm text-gray-500 truncate w-full text-left'>
+                                    {user.email}
+                                </span>
+                            </div>
                         </div>
-                    </div>
 
-                </DropdownMenuLabel>
+                    </DropdownMenuLabel>
                 <DropdownMenuSeparator className='bg-gray-600' />
                 <DropdownMenuGroup>
                     <DropdownMenuItem onClick={() => router.push('/watchlist')} className='text-gray-100 text-md font-medium focus:bg-transparent focus:text-yellow-500 transition-colors duration-200 cursor-pointer'>

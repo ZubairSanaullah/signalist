@@ -15,6 +15,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import Link from "next/link";
 import { searchStocks } from "@/lib/actions/finnhub.actions";
+import { toggleWatchlistItem } from "@/lib/actions/watchlist.actions";
 import { useDebounce } from "@/hooks/useDebounce";
 
 export default function SearchCommand({ renderAs = 'button', label = 'Add stock', initialStocks }: SearchCommandProps) {
@@ -161,13 +162,25 @@ export default function SearchCommand({ renderAs = 'button', label = 'Add stock'
                                                     <span className="capitalize">{stock.type}</span>
                                                 </div>
                                             </div>
-                                            <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button 
+                                                className="opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-white/10 rounded-full"
+                                                onClick={async (e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    try {
+                                                        const res = await toggleWatchlistItem(stock.symbol, stock.name);
+                                                        setStocks(prev => prev.map(s => s.symbol === stock.symbol ? { ...s, isInWatchlist: res.added } : s));
+                                                    } catch (error) {
+                                                        console.error("Failed to toggle watchlist", error);
+                                                    }
+                                                }}
+                                            >
                                                 <HugeiconsIcon 
                                                     icon={StarIcon}
                                                     size={20} 
                                                     className={stock.isInWatchlist ? "text-yellow-500 fill-yellow-500" : "text-gray-600"} 
                                                 />
-                                            </div>
+                                            </button>
                                         </Link>
                                     </div>
                                 ))}

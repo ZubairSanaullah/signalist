@@ -116,6 +116,6 @@ export const sendDailyNewsSummary = inngest.createFunction(
                 )
             })
 
-        return { success: true, message: 'Daily news summary emails sent successfully' }
+        return { success: true }
     }
 )
